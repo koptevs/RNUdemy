@@ -20,3 +20,13 @@ $ npx expo install react-native-safe-area-context
 ```shell
 $ npx expo install expo-splash-screen
 ```
+
+## Navigation
+
+```shell
+$ npm install @react-navigation/native
+$ npx expo install react-native-screens
+$ npm install @react-navigation/stack
+$ npx expo install react-native-gesture-handler
+$ npx expo install react-native-reanimated
+```
