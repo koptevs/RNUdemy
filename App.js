@@ -23,8 +23,8 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
+    <SafeAreaProvider style={styles.container} onLayout={onLayoutRootView}>
+      <SafeAreaView>
         <Text style={styles.text}>YOUR AMAZING APP!</Text>
         <StatusBar style="auto" />
       </SafeAreaView>
@@ -38,9 +38,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    borderStyle: 'solid',
   },
+  // view: {
+  //   backgroundColor: '#afc',
+  //   width: 600,
+  //   height: 944,
+  // },
   text: {
     fontFamily: 'Roboto-Thin',
-    fontSize: 48,
+    fontSize: 24,
   },
 });
