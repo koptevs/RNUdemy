@@ -2,7 +2,6 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
 const ChatListScreen = (props) => {
-  console.log(props);
   return (
     <View style={styles.container}>
       <Text style={styles.text}>ChatListScreen</Text>
