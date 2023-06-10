@@ -29,4 +29,6 @@ $ npx expo install react-native-screens
 $ npm install @react-navigation/stack
 $ npx expo install react-native-gesture-handler
 $ npx expo install react-native-reanimated
+$ npm install @react-navigation/bottom-tabs
+$ npx expo install @expo/vector-icons
 ```
