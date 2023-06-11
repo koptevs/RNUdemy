@@ -3,4 +3,6 @@ export const themePalette = {
   tabIconsInactiveColor: 'gray',
   tabIconsActiveColor: '#85c98b',
   white: '#fefefe',
+  blue: '#3498db',
+  lightGrey: '#bdc3c7',
 };

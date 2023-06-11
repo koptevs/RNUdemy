@@ -8,6 +8,7 @@ import { themePalette } from '../theme';
 import ChatListScreen from '../screens/ChatListScreen';
 import ChatSettingsScreen from '../screens/ChatSettingsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ChatScreen from '../screens/ChatScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -74,6 +75,20 @@ const MainNavigator = () => {
           gestureEnabled: true,
           animationEnabled: true,
           title: 'Chat Settings',
+          headerTitleStyle: {
+            fontFamily: 'Roboto-Light',
+            fontSize: 16,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ChatScreen"
+        component={ChatScreen}
+        options={{
+          headerTitle: '',
+          gestureEnabled: true,
+          animationEnabled: true,
+          title: 'Chat Screen',
           headerTitleStyle: {
             fontFamily: 'Roboto-Light',
             fontSize: 16,
