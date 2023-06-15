@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import MainNavigator from './MainNavigator';
+import AuthScreen from '../screens/AuthScreen';
 
 const AppNavigator = (props) => {
-  // const isSignedIn = checkIsSignedIn();
+  const isAuth = false;
   return (
     <NavigationContainer>
-      <MainNavigator />
-      {/* { isSignedIn && <MainNavigator />} */}
-      {/* { !isSignedIn && <SignInNavigator />} */}
+      {isAuth && <MainNavigator />}
+      {!isAuth && <AuthScreen />}
     </NavigationContainer>
   );
 };
