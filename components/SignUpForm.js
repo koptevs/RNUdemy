@@ -1,12 +1,44 @@
-import React from 'react';
+import React, { useCallback, useReducer } from 'react';
 import Input from './Input';
 import { Feather } from '@expo/vector-icons';
 import SubmiButton from './SubmiButton';
 import { validateInput } from '../utils/actions/formActions';
+import { reducer } from '../utils/reducers/formReducer';
+import { signUp } from '../utils/actions/authActions';
 
 const SignUpForm = () => {
-  const inputChangeHandler = (inputId, inputValue) => {
-    console.log(validateInput(inputId, inputValue));
+  const initialState = {
+    inputValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    },
+    inputValidities: {
+      firstName: false,
+      lastName: false,
+      email: false,
+      password: false,
+    },
+    formIsValid: false,
+  };
+
+  const [formState, dispatchFormState] = useReducer(reducer, initialState);
+
+  const inputChangeHandler = useCallback(
+    (inputId, inputValue) => {
+      const result = validateInput(inputId, inputValue);
+      dispatchFormState({
+        validationResult: result,
+        inputId: inputId,
+        inputValue: inputValue,
+      });
+    },
+    [dispatchFormState],
+  );
+  const authHandler = () => {
+    const { firstName, lastName, email, password } = formState.inputValues;
+    signUp(firstName, lastName, email, password);
   };
 
   return (
@@ -19,7 +51,7 @@ const SignUpForm = () => {
         iconSize={24}
         onInputChanged={inputChangeHandler}
         autoCapitalize="none"
-        //   errorText="Some error"
+        errorText={formState.inputValidities['firstName']}
       />
       <Input
         id="lastName"
@@ -29,7 +61,7 @@ const SignUpForm = () => {
         iconSize={24}
         onInputChanged={inputChangeHandler}
         autoCapitalize="none"
-        //   errorText="Some error"
+        errorText={formState.inputValidities['lastName']}
       />
       <Input
         id="email"
@@ -40,7 +72,7 @@ const SignUpForm = () => {
         onInputChanged={inputChangeHandler}
         keyboardType="email-address"
         autoCapitalize="none"
-        //   errorText="Some error"
+        errorText={formState.inputValidities['email']}
       />
       <Input
         id="password"
@@ -51,13 +83,13 @@ const SignUpForm = () => {
         autoCapitalize="none"
         secureTextEntry
         onInputChanged={inputChangeHandler}
-        //   errorText="Some error"
+        errorText={formState.inputValidities['password']}
       />
       <SubmiButton
         title="Sign up"
-        onPress={() => console.log('pressed!!!')}
-        // disabled
+        onPress={authHandler}
         style={{ marginTop: 20 }}
+        disabled={!formState.formIsValid}
       />
     </>
   );

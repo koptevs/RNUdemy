@@ -18,7 +18,7 @@ import logo from '../assets/images/logo.png';
 import { ScrollView } from 'react-native';
 
 const AuthScreen = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(true);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

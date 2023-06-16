@@ -38,7 +38,7 @@ export const validatePassword = (id, value) => {
   if (value !== '') {
     constraints.length = {
       minimum: 5,
-      tooShort: 'Karotkaja - nada %{count}',
+      tooShort: ' слишком короткий - нужно ввести минимум %{count} символов.',
       // message: 'fffgfgfg;;l;l',
     };
   }
