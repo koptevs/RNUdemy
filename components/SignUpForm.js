@@ -1,12 +1,18 @@
-import React, { useCallback, useReducer } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import Input from './Input';
 import { Feather } from '@expo/vector-icons';
 import SubmiButton from './SubmiButton';
 import { validateInput } from '../utils/actions/formActions';
 import { reducer } from '../utils/reducers/formReducer';
 import { signUp } from '../utils/actions/authActions';
+import { async } from 'validate.js';
+import { Alert } from 'react-native';
+import { ActivityIndicator } from 'react-native';
+import { themePalette } from '../theme';
 
 const SignUpForm = () => {
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const initialState = {
     inputValues: {
       firstName: '',
@@ -36,9 +42,25 @@ const SignUpForm = () => {
     },
     [dispatchFormState],
   );
-  const authHandler = () => {
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+      Alert.alert('Произошла ашипка', error, [{ text: 'Не дурак - понял' }]);
+      setError(null);
+    }
+  }, [error]);
+
+  const authHandler = async () => {
     const { firstName, lastName, email, password } = formState.inputValues;
-    signUp(firstName, lastName, email, password);
+    try {
+      setIsLoading(true);
+      await signUp(email, password, firstName, lastName);
+      // setError(null);
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -85,12 +107,20 @@ const SignUpForm = () => {
         onInputChanged={inputChangeHandler}
         errorText={formState.inputValidities['password']}
       />
-      <SubmiButton
-        title="Sign up"
-        onPress={authHandler}
-        style={{ marginTop: 20 }}
-        disabled={!formState.formIsValid}
-      />
+      {isLoading ? (
+        <ActivityIndicator
+          size={50}
+          color={themePalette.primary}
+          style={{ marginTop: 15 }}
+        />
+      ) : (
+        <SubmiButton
+          title="Sign up"
+          onPress={authHandler}
+          style={{ marginTop: 20 }}
+          disabled={!formState.formIsValid}
+        />
+      )}
     </>
   );
 };

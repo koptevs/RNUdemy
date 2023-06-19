@@ -23,7 +23,7 @@ export const reducer = (state, action) => {
     }
   }
 
-  console.log(updatedValues);
+  // console.log(updatedValues);
 
   return {
     ...state,
